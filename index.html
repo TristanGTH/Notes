@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+    <script defer src="https://unpkg.com/vue@next"></script>
+    <script defer src="app.js"></script>
+    <title>Title</title>
+    <style>
+        #hover:hover{
+            background-color: rgba(167, 167, 167, 0.44);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <div class="row justify-content-center">
+        <div class="col-sm-8 mt-5">
+            <h1 class="text-center mb-4">Notes</h1>
+            <form class="d-grid gap-2" action="" @submit.prevent="addNote">
+                <button type="submit" class="btn btn-primary">Create a new note</button>
+            </form>
+            <div class="mb-4 mt-4 border" v-for="(eachNote,index) in allNote" id="hover">
+                <div class="d-flex justify-content-between">
+                    <label :for=eachNote.id class="form-label w-100 p-1" @click="displayNote(eachNote.id)">{{eachNote.content.split('').length > stringLimit ? eachNote.content.slice(0,stringLimit)+ '...' : eachNote.content}}</label>
+                    <p class="w-25 p-1 m-0 text-center" v-if="eachNote.content"><span class="text-danger" @click="deleteNote(eachNote.id)">Delete   </span>{{allNote[index].content.split(' ').length}} Words</p>
+                </div>
+                <textarea class="form-control" :id=eachNote.id rows="3"  style="display: none" v-model="allNote[index].content" @keyup="updateNote()">{{allNote[index].content.trim()}}</textarea>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
